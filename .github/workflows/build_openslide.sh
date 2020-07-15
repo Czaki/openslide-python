@@ -7,3 +7,6 @@ cd openslide-3.4.1
 ./configure
 make
 make install
+
+cd ..
+rm -r openslide-3.4.1
