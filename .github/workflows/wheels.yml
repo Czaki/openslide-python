@@ -3,7 +3,7 @@ name: Wheel
 on: [push, pull_request]
 
 env:
-  CIBW_BUILD: "cp*"
+  CIBW_BUILD: "cp3*"
   CIBW_BEFORE_ALL: bash .github/workflows/build_openslide.sh
   CIBW_TEST_COMMAND: python -m unittest {project}/tests
 
