@@ -1,0 +1,29 @@
+name: Wheel
+
+on: [push, pull_request]
+
+env:
+  CIBW_BUILD: "cp*"
+  CIBW_BEFORE_ALL: bash .github/workflows/build_openslide.sh
+  CIBW_TEST_COMMAND: python -m unittest {project}/tests
+
+jobs:
+  wheel:
+    name: Build wheel on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
+      name: Install Python ${{ matrix.python_version }}
+      with:
+        python-version: 3.7
+    
+    - name: Install cibuildwheel
+      run: pip install cibuildwheel
+
+    - name: Build wheel
+      run: cibuildwheel .
